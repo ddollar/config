@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"os/user"
 	"path"
 	"path/filepath"
 	"sort"
@@ -63,11 +62,7 @@ func (c *Config) configDirectory() (string) {
 }
 
 func (c *Config) homeDirectory() (string) {
-	u, err := user.Current()
-	if err != nil {
-		panic(err)
-	}
-	return u.HomeDir
+	return os.Getenv("HOME")
 }
 
 func (c *Config) writeFile(filename, body string) (err error) {
