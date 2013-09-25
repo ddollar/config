@@ -61,10 +61,6 @@ func (c *Config) configDirectory() (string) {
 	return path.Join(c.homeDirectory(), fmt.Sprintf(".%s", c.Base))
 }
 
-func (c *Config) homeDirectory() (string) {
-	return os.Getenv("HOME")
-}
-
 func (c *Config) writeFile(filename, body string) (err error) {
 	dir := filepath.Dir(filename)
 	if err = os.MkdirAll(dir, 0700); err != nil {
