@@ -6,6 +6,6 @@ import (
 	"os"
 )
 
-func (c *Config) homeDirectory() (string) {
+func (c *Config) homeDirectory() string {
 	return os.Getenv("HOME")
 }

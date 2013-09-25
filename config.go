@@ -19,6 +19,7 @@ type ConfigEntry struct {
 	Value string
 }
 
+// Create a new Config manager
 func NewConfig(base string) (config *Config) {
 	config = &Config{}
 	config.Base = base
@@ -26,6 +27,7 @@ func NewConfig(base string) (config *Config) {
 	return
 }
 
+// List keys for a given config
 func (c *Config) List(name string) (keys []string, err error) {
 	dir := path.Join(c.configDirectory(), name)
 	files, err := ioutil.ReadDir(dir)
@@ -39,25 +41,28 @@ func (c *Config) List(name string) (keys []string, err error) {
 	return
 }
 
+// Save a key/value pair for a config
 func (c *Config) Save(name, key, value string) (err error) {
 	filename := path.Join(c.configDirectory(), name, key)
 	err = c.writeFile(filename, value)
 	return
 }
 
+// Load a value for a config key
 func (c *Config) Load(name, key string) (body string, err error) {
 	filename := path.Join(c.configDirectory(), name, key)
 	body, err = c.readFile(filename)
 	return
 }
 
+// Delete a config key/value pair
 func (c *Config) Delete(name, key string) (err error) {
 	filename := path.Join(c.configDirectory(), name, key)
 	err = os.Remove(filename)
 	return
 }
 
-func (c *Config) configDirectory() (string) {
+func (c *Config) configDirectory() string {
 	return path.Join(c.homeDirectory(), fmt.Sprintf(".%s", c.Base))
 }
 
