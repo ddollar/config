@@ -1,3 +1,4 @@
+// Cross-platform configuration manager
 package config
 
 import (
